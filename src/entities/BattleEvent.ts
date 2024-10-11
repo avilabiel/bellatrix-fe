@@ -1,5 +1,3 @@
-import User from "./User";
-
 export enum ACTION_TYPE {
   "base-attack",
   "item-use",
