@@ -125,4 +125,5 @@ _This README was generated with ❤️ by [readme-md-generator](https://github.c
 
 ## Tech Debt
 
-1. Fix Linter
+1. Fix Linter on startup
+2. Fix Linter on commit messages
