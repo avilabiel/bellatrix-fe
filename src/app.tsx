@@ -18,9 +18,8 @@ export function App() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { user, monster } = battle;
 
-  // R20 atacou o Goblin tirando 3 pontos de vida
-  // O Goblin atacou o R20 tirando 2 pontos de vida
   const eventFormatter = (battleEvent: BattleEvent | string) => {
+    // TODO: Improve this function => WTH is this?
     if (typeof battleEvent === "string") {
       return battleEvent;
     }
@@ -34,18 +33,17 @@ export function App() {
     throw new Error("EventFormatter: NOT IMPLEMENTED");
   };
 
-  // TODO: reuse this baseAtk
   const baseAtk = useCallback(
     (sender: User | Monster, receiver: User | Monster) => {
       const senderAtk = sender.getAtk();
 
-      const atk = getRandomizer(senderAtk.max, senderAtk.min);
+      const atk = getRandomizer(senderAtk.min, senderAtk.max);
       const isReceiverDead = receiver.getHp() - atk <= 0;
 
       const battleEvent = new BattleEvent({
         actionType: ACTION_TYPE["base-attack"],
         sender: {
-          name: user.nick,
+          name: sender.getName(),
         },
         receiver: {
           name: receiver.getName(),
@@ -70,6 +68,11 @@ export function App() {
             monster: receiver,
           };
         });
+
+        // NB: Avoid that the receiver attack after dead
+        if (!isReceiverDead) {
+          baseAtk(receiver, sender);
+        }
       }
 
       if (receiver instanceof User) {
@@ -84,10 +87,8 @@ export function App() {
 
       if (isReceiverDead) {
         alert("BOA POOOOOO!");
+        return;
       }
-
-      // present the log
-      // todo: check if monster or user is dead
     },
     [monster]
   );
