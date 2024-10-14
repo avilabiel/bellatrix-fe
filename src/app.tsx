@@ -134,6 +134,7 @@ export function App() {
         spell,
         result: {
           sender: {
+            mp: spell.mpCost * -1,
             isWinner: isReceiverDead,
           },
           receiver: {

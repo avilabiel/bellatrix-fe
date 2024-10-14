@@ -1,8 +1,8 @@
 export enum ACTION_TYPE {
-  "base-attack",
-  "item-use",
-  "spell-attack",
-  "conclusion",
+  "base-attack" = "base-attack",
+  "item-use" = "item-use",
+  "spell-attack" = "spell-attack",
+  "conclusion" = "conclusion",
 }
 
 export default class BattleEvent {
