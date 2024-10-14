@@ -6,6 +6,7 @@ import BattleEvent, { ACTION_TYPE } from "./entities/BattleEvent";
 import Battle from "./entities/Battle";
 import User from "./entities/User";
 import Monster from "./entities/Monster";
+import Spell from "./entities/Spell";
 
 // TODO: explain
 function getRandomizer(min: number, max: number) {
@@ -28,6 +29,14 @@ export function App() {
       return `${battleEvent.sender.name} atacou o ${
         battleEvent.receiver.name
       } tirando ${battleEvent.result.receiver?.hp! * -1} pontos de vida`;
+    }
+
+    if (battleEvent.actionType === ACTION_TYPE["spell-attack"]) {
+      return `${battleEvent.sender.name} atacou o ${
+        battleEvent.receiver.name
+      } usando a habilidade ${battleEvent.spell?.name} tirando ${
+        battleEvent.result.receiver?.hp! * -1
+      } pontos de vida`;
     }
 
     throw new Error("EventFormatter: NOT IMPLEMENTED");
@@ -86,11 +95,80 @@ export function App() {
       }
 
       if (isReceiverDead) {
-        alert("BOA POOOOOO!");
         return;
       }
     },
-    [monster]
+    [battle]
+  );
+
+  // TODO: spend MP
+  const spellAtk = useCallback(
+    (sender: User | Monster, receiver: User | Monster, spellName: string) => {
+      const spell: Spell | undefined = sender
+        .getSpells()
+        .find((spell) => spell.name === spellName);
+
+      if (!spell) {
+        alert("Spell not found!");
+        return;
+      }
+
+      const senderAtk = spell.atk;
+
+      const atk = getRandomizer(senderAtk.min, senderAtk.max);
+      const isReceiverDead = receiver.getHp() - atk <= 0;
+
+      const battleEvent = new BattleEvent({
+        actionType: ACTION_TYPE["spell-attack"],
+        sender: {
+          name: sender.getName(),
+        },
+        receiver: {
+          name: receiver.getName(),
+        },
+        spell,
+        result: {
+          sender: {
+            isWinner: isReceiverDead,
+          },
+          receiver: {
+            hp: atk * -1,
+          },
+        },
+      });
+
+      receiver.setHp(receiver.getHp() - atk);
+
+      if (receiver instanceof Monster) {
+        setBattle((battle) => {
+          return {
+            ...battle,
+            events: [...battle.events, battleEvent],
+            monster: receiver,
+          };
+        });
+
+        // NB: Avoid that the receiver attack after dead
+        if (!isReceiverDead) {
+          baseAtk(receiver, sender);
+        }
+      }
+
+      if (receiver instanceof User) {
+        setBattle((battle) => {
+          return {
+            ...battle,
+            events: [...battle.events, battleEvent],
+            user: receiver,
+          };
+        });
+      }
+
+      if (isReceiverDead) {
+        return;
+      }
+    },
+    [battle]
   );
 
   useEffect(() => {
@@ -151,7 +229,17 @@ export function App() {
         <button onClick={() => baseAtk(user, monster)}>
           Atacar ({user.character.atk.min} a {user.character.atk.max})
         </button>
-        <button>Bola de fogo (MP: {user.character.mp})</button>
+
+        {user.character.spells.map((spell, key) => {
+          return (
+            <button
+              key={key}
+              onClick={() => spellAtk(user, monster, spell.name)}
+            >
+              {spell.name} (MP: {spell.mpCost})
+            </button>
+          );
+        })}
 
         {user.character.items.map((item, index) => {
           return (

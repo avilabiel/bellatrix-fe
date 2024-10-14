@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ICombantant from "./ICombatant";
+import Spell from "./Spell";
 
 export default class Monster implements ICombantant {
   id?: string;
@@ -55,5 +56,9 @@ export default class Monster implements ICombantant {
 
   setHp(hp: number): void {
     this.hp = hp;
+  }
+
+  getSpells(): Spell[] {
+    return [];
   }
 }

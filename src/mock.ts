@@ -23,6 +23,7 @@ export const user = new User({
           min: 7,
           max: 7,
         },
+        mpCost: 10,
       },
     ],
     items: [

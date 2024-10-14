@@ -1,13 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ICombantant from "./ICombatant";
-
-type Spell = {
-  name: string;
-  atk: {
-    min: number;
-    max: number;
-  };
-};
+import Spell from "./Spell";
 
 type Item = {
   name: string;
@@ -70,5 +63,9 @@ export default class User implements ICombantant {
 
   setHp(hp: number): void {
     this.character.hp = hp;
+  }
+
+  getSpells(): Spell[] {
+    return this.character.spells;
   }
 }
