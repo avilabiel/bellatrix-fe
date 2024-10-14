@@ -46,16 +46,26 @@ export default class Monster implements ICombantant {
     return this.hp;
   }
 
+  setHp(hp: number): void {
+    this.hp = hp;
+  }
+
+  getMp(): number {
+    return 0;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setMp(mp: number): void {
+    // NB: monsters don't have spells yet
+    throw new Error("Monsters don't have spells yet");
+  }
+
   getImage(): string {
     return this.image;
   }
 
   getName(): string {
     return this.name;
-  }
-
-  setHp(hp: number): void {
-    this.hp = hp;
   }
 
   getSpells(): Spell[] {

@@ -101,7 +101,6 @@ export function App() {
     [battle]
   );
 
-  // TODO: spend MP
   const spellAtk = useCallback(
     (sender: User | Monster, receiver: User | Monster, spellName: string) => {
       const spell: Spell | undefined = sender
@@ -110,6 +109,12 @@ export function App() {
 
       if (!spell) {
         alert("Spell not found!");
+        return;
+      }
+
+      const senderManaAfterAtk = sender.getMp() - spell.mpCost;
+      if (senderManaAfterAtk < 0) {
+        alert("You don't have enough mana");
         return;
       }
 
@@ -138,13 +143,15 @@ export function App() {
       });
 
       receiver.setHp(receiver.getHp() - atk);
+      sender.setMp(senderManaAfterAtk);
 
-      if (receiver instanceof Monster) {
+      if (receiver instanceof Monster && sender instanceof User) {
         setBattle((battle) => {
           return {
             ...battle,
             events: [...battle.events, battleEvent],
             monster: receiver,
+            user: sender,
           };
         });
 
@@ -154,15 +161,7 @@ export function App() {
         }
       }
 
-      if (receiver instanceof User) {
-        setBattle((battle) => {
-          return {
-            ...battle,
-            events: [...battle.events, battleEvent],
-            user: receiver,
-          };
-        });
-      }
+      // NB: later we can implement spell attack for monsters
 
       if (isReceiverDead) {
         return;

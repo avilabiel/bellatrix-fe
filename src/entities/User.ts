@@ -53,16 +53,24 @@ export default class User implements ICombantant {
     return this.character.hp;
   }
 
+  setHp(hp: number): void {
+    this.character.hp = hp;
+  }
+
+  getMp(): number {
+    return this.character.mp;
+  }
+
+  setMp(mp: number): void {
+    this.character.mp = mp;
+  }
+
   getImage(): string {
     return this.image;
   }
 
   getName(): string {
     return this.nick;
-  }
-
-  setHp(hp: number): void {
-    this.character.hp = hp;
   }
 
   getSpells(): Spell[] {
