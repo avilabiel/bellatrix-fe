@@ -10,7 +10,7 @@ export default class BattleEvent {
   sender: {
     name: string;
   };
-  receiver: {
+  receiver: null | {
     name: string;
   };
   item?: null | {
@@ -25,12 +25,14 @@ export default class BattleEvent {
       mp?: number;
       xp?: number;
       isWinner?: boolean;
+      newQuantity?: number;
     };
     receiver: null | {
       hp?: number;
       mp?: number;
       xp?: number;
       isWinner?: boolean;
+      newQuantity?: number;
     };
   };
 

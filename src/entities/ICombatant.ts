@@ -1,3 +1,4 @@
+import Item from "./Item";
 import Spell from "./Spell";
 
 export default interface ICombantant {
@@ -9,4 +10,5 @@ export default interface ICombantant {
   getMp(): number;
   setMp(mp: number): void;
   getSpells(): Spell[];
+  getItems(): Item[];
 }

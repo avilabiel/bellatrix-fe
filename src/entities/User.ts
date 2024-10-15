@@ -1,15 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ICombantant from "./ICombatant";
+import Item from "./Item";
 import Spell from "./Spell";
-
-type Item = {
-  name: string;
-  result: {
-    hp: number;
-    mp: number;
-  };
-  quantity: number;
-};
 
 type Character = {
   level: number;
@@ -75,5 +67,9 @@ export default class User implements ICombantant {
 
   getSpells(): Spell[] {
     return this.character.spells;
+  }
+
+  getItems(): Item[] {
+    return this.character.items;
   }
 }

@@ -27,16 +27,20 @@ export function App() {
 
     if (battleEvent.actionType === ACTION_TYPE["base-attack"]) {
       return `${battleEvent.sender.name} atacou o ${
-        battleEvent.receiver.name
+        battleEvent.receiver?.name
       } tirando ${battleEvent.result.receiver?.hp! * -1} pontos de vida`;
     }
 
     if (battleEvent.actionType === ACTION_TYPE["spell-attack"]) {
       return `${battleEvent.sender.name} atacou o ${
-        battleEvent.receiver.name
+        battleEvent.receiver?.name
       } usando a habilidade ${battleEvent.spell?.name} tirando ${
         battleEvent.result.receiver?.hp! * -1
       } pontos de vida`;
+    }
+
+    if (battleEvent.actionType === ACTION_TYPE["item-use"]) {
+      return `${battleEvent.sender.name} usou o item ${battleEvent.item?.name} (qnt: ${battleEvent.result.sender?.newQuantity}) aumentando ${battleEvent.result.sender?.hp} pontos de HP e ${battleEvent.result.sender?.mp} pontos de MP`;
     }
 
     throw new Error("EventFormatter: NOT IMPLEMENTED");
@@ -101,6 +105,56 @@ export function App() {
     [battle]
   );
 
+  const useItem = useCallback((sender: User | Monster, itemName: string) => {
+    const item = sender.getItems().find((item) => item.name === itemName);
+
+    if (!item) {
+      alert("Item not found!");
+      return;
+    }
+
+    if (item.quantity <= 0) {
+      alert("You don't have enough items");
+      return;
+    }
+
+    // TODO: Don't overpass the max HP
+    sender.setHp(sender.getHp() + item.result.hp);
+    sender.setMp(sender.getMp() + item.result.mp);
+    item.quantity--;
+
+    const battleEvent = new BattleEvent({
+      actionType: ACTION_TYPE["item-use"],
+      sender: {
+        name: sender.getName(),
+      },
+      receiver: null,
+      item: {
+        name: item.name,
+      },
+      result: {
+        sender: {
+          hp: item.result.hp,
+          mp: item.result.mp,
+          newQuantity: item.quantity,
+        },
+        receiver: null,
+      },
+    });
+
+    if (sender instanceof User) {
+      setBattle((battle) => {
+        return {
+          ...battle,
+          events: [...battle.events, battleEvent],
+          user: sender,
+        };
+      });
+
+      baseAtk(battle.monster, sender);
+    }
+  }, []);
+
   const spellAtk = useCallback(
     (sender: User | Monster, receiver: User | Monster, spellName: string) => {
       const spell: Spell | undefined = sender
@@ -163,7 +217,6 @@ export function App() {
       }
 
       // NB: later we can implement spell attack for monsters
-
       if (isReceiverDead) {
         return;
       }
@@ -243,7 +296,7 @@ export function App() {
 
         {user.character.items.map((item, index) => {
           return (
-            <button key={index}>
+            <button onClick={() => useItem(user, item.name)} key={index}>
               {item.name}: {item.quantity}
             </button>
           );
