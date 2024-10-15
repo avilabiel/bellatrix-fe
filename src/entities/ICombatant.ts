@@ -5,6 +5,8 @@ export default interface ICombantant {
   getName(): string;
   getImage(): string;
   getAtk(): { min: number; max: number };
+  getMaxHp(): number;
+  getMaxMp(): number;
   getHp(): number;
   setHp(hp: number): void;
   getMp(): number;

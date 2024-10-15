@@ -11,6 +11,8 @@ export const user = new User({
     level: 1,
     hp: 20,
     mp: 10,
+    maxHp: 20,
+    maxMp: 10,
     xp: 0,
     atk: {
       min: 3,
@@ -54,6 +56,9 @@ export const rat = new Monster({
   image: "https://google.com",
   level: 1,
   hp: 20,
+  mp: 0,
+  maxHp: 20,
+  maxMp: 0,
   xp: 10,
   atk: {
     min: 1,

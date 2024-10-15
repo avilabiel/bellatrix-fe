@@ -7,6 +7,8 @@ type Character = {
   level: number;
   hp: number;
   mp: number;
+  maxHp: number;
+  maxMp: number;
   xp: number;
   atk: {
     min: number;
@@ -45,12 +47,20 @@ export default class User implements ICombantant {
     return this.character.hp;
   }
 
+  getMaxHp(): number {
+    return this.character.maxHp;
+  }
+
   setHp(hp: number): void {
     this.character.hp = hp;
   }
 
   getMp(): number {
     return this.character.mp;
+  }
+
+  getMaxMp(): number {
+    return this.character.maxMp;
   }
 
   setMp(mp: number): void {

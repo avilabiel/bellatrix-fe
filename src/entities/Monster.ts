@@ -9,6 +9,9 @@ export default class Monster implements ICombantant {
   image: string;
   level: number;
   hp: number;
+  mp: number;
+  maxHp: number;
+  maxMp: number;
   xp: number;
   atk: {
     min: number;
@@ -23,6 +26,9 @@ export default class Monster implements ICombantant {
     image: string;
     level: number;
     hp: number;
+    mp: number;
+    maxHp: number;
+    maxMp: number;
     xp: number;
     atk: { min: number; max: number };
     spawnChance: number;
@@ -33,6 +39,9 @@ export default class Monster implements ICombantant {
     this.image = props.image;
     this.level = props.level;
     this.hp = props.hp;
+    this.mp = props.mp;
+    this.maxHp = props.maxHp;
+    this.maxMp = props.maxMp;
     this.xp = props.xp;
     this.atk = props.atk;
     this.spawnChance = props.spawnChance;
@@ -47,18 +56,24 @@ export default class Monster implements ICombantant {
     return this.hp;
   }
 
+  getMaxHp(): number {
+    return this.maxHp;
+  }
+
   setHp(hp: number): void {
     this.hp = hp;
   }
 
   getMp(): number {
-    return 0;
+    return this.mp;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getMaxMp(): number {
+    return this.maxMp;
+  }
+
   setMp(mp: number): void {
-    // NB: monsters don't have spells yet
-    throw new Error("Monsters don't have spells yet");
+    this.mp = mp;
   }
 
   getImage(): string {

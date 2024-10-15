@@ -118,9 +118,19 @@ export function App() {
       return;
     }
 
-    // TODO: Don't overpass the max HP
-    sender.setHp(sender.getHp() + item.result.hp);
-    sender.setMp(sender.getMp() + item.result.mp);
+    let newHp = sender.getHp() + item.result.hp;
+    let newMp = sender.getMp() + item.result.mp;
+
+    if (newHp > sender.getMaxHp()) {
+      newHp = sender.getMaxHp();
+    }
+
+    if (newMp > sender.getMaxMp()) {
+      newMp = sender.getMaxMp();
+    }
+
+    sender.setHp(newHp);
+    sender.setMp(newMp);
     item.quantity--;
 
     const battleEvent = new BattleEvent({
