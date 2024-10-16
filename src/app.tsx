@@ -7,6 +7,8 @@ import Battle from "./entities/Battle";
 import User from "./entities/User";
 import Monster from "./entities/Monster";
 import Spell from "./entities/Spell";
+import HealthBar from "./components/HealthBar";
+import ManaBar from "./components/ManaBar";
 
 // TODO: explain
 function getRandomizer(min: number, max: number) {
@@ -260,35 +262,18 @@ export function App() {
           readOnly
         />
       </div>
-      <div
-        style={{
-          display: "flex",
-          gap: 200,
-          width: "100%",
-          justifyContent: "center",
-          marginTop: 20,
-        }}
-      >
-        <div>
-          <h1>r20</h1>
-          <h2>
-            HP: {user.character.hp} / MP: {user.character.mp}
-          </h2>
+      <div className="flex gap-48 w-full justify-center mt-5">
+        <div className="flex flex-col gap-y-4">
+          <h1>R20</h1>
+          <HealthBar health={user.getHp()} maxHealth={user.character.maxHp} />
+          <ManaBar mana={user.getMp()} maxMana={user.character.maxMp}/>
         </div>
         <div>
           <h1>{monster.name}</h1>
           <h2>HP: {monster.hp} / MP: -</h2>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          gap: 5,
-          width: "100%",
-          justifyContent: "center",
-          marginTop: 20,
-        }}
-      >
+      <div className="flex gap-1 w-full justify-center mt-5">
         <button onClick={() => baseAtk(user, monster)}>
           Atacar ({user.character.atk.min} a {user.character.atk.max})
         </button>
