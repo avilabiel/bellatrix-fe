@@ -266,11 +266,12 @@ export function App() {
         <div className="flex flex-col gap-y-4">
           <h1>R20</h1>
           <HealthBar health={user.getHp()} maxHealth={user.character.maxHp} />
-          <ManaBar mana={user.getMp()} maxMana={user.character.maxMp}/>
+          <ManaBar mana={user.getMp()} maxMana={user.character.maxMp} />
         </div>
-        <div>
+        <div className="flex flex-col  gap-y-4">
           <h1>{monster.name}</h1>
-          <h2>HP: {monster.hp} / MP: -</h2>
+          <HealthBar health={monster.getHp()} maxHealth={monster.maxHp} monster/>
+          <ManaBar mana={monster.getMp()} maxMana={monster.maxMp} monster/>
         </div>
       </div>
       <div className="flex gap-1 w-full justify-center mt-5">
