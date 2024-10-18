@@ -53,7 +53,7 @@ export const user = new User({
 export const rat = new Monster({
   id: "1234-token",
   name: "Rat",
-  image: "https://google.com",
+  image: "https://cdn.vectorstock.com/i/1000v/01/10/rat-vector-2370110.jpg",
   level: 1,
   hp: 20,
   mp: 0,

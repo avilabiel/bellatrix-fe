@@ -246,6 +246,27 @@ export function App() {
 
   return (
     <div className="App">
+      <div className="flex gap-12 w-full justify-center mt-5">
+        <div className="flex flex-col gap-y-4 items-center">
+          <img className="w-36 h-36 rounded" src={user.image} />
+          <h1>R20</h1>
+          <HealthBar health={user.getHp()} maxHealth={user.character.maxHp} />
+          <ManaBar mana={user.getMp()} maxMana={user.character.maxMp} />
+        </div>
+        <div className="flex justify-center items-center">
+          <span className="text-5xl">🆚</span>
+        </div>
+        <div className="flex flex-col gap-y-4 items-center">
+          <img className="w-36 h-36 rounded" src={monster.image} />
+          <h1>{monster.name}</h1>
+          <HealthBar
+            health={monster.getHp()}
+            maxHealth={monster.maxHp}
+            monster
+          />
+          <ManaBar mana={monster.getMp()} maxMana={monster.maxMp} monster />
+        </div>
+      </div>
       <div
         style={{
           display: "flex",
@@ -256,36 +277,24 @@ export function App() {
         }}
       >
         <textarea
+          className="resize-none w-[700px] h-20 px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
           ref={textareaRef}
-          style={{ width: "700px", height: "500px" }}
           value={battle.events.map(eventFormatter).join("\n")}
           readOnly
         />
       </div>
-      <div className="flex gap-48 w-full justify-center mt-5">
-        <div className="flex flex-col gap-y-4">
-          <h1>R20</h1>
-          <HealthBar health={user.getHp()} maxHealth={user.character.maxHp} />
-          <ManaBar mana={user.getMp()} maxMana={user.character.maxMp} />
-        </div>
-        <div className="flex flex-col  gap-y-4">
-          <h1>{monster.name}</h1>
-          <HealthBar
-            health={monster.getHp()}
-            maxHealth={monster.maxHp}
-            monster
-          />
-          <ManaBar mana={monster.getMp()} maxMana={monster.maxMp} monster />
-        </div>
-      </div>
-      <div className="flex gap-1 w-full justify-center mt-5">
-        <button onClick={() => baseAtk(user, monster)}>
+      <div className="flex gap-2 w-full justify-center mt-10">
+        <button
+          className="bg-gradient-to-r from-red-600 to-red-400 text-white font-bold py-3 px-6 rounded shadow-lg hover:bg-gradient-to-r hover:from-red-700 hover:to-red-500 transition-all duration-200 transform hover:scale-105"
+          onClick={() => baseAtk(user, monster)}
+        >
           Atacar ({user.character.atk.min} a {user.character.atk.max})
         </button>
 
         {user.character.spells.map((spell, key) => {
           return (
             <button
+              className="bg-gradient-to-r from-red-600 to-red-400 text-white font-bold py-3  px-6 rounded shadow-lg hover:bg-gradient-to-r hover:from-red-700 hover:to-red-500 transition-all duration-200 transform hover:scale-105"
               key={key}
               onClick={() => spellAtk(user, monster, spell.name)}
             >
@@ -296,7 +305,11 @@ export function App() {
 
         {user.character.items.map((item, index) => {
           return (
-            <button onClick={() => useItem(user, item.name)} key={index}>
+            <button
+              className="bg-gradient-to-r from-red-600 to-red-400 text-white font-bold py-3 px-6 rounded shadow-lg hover:bg-gradient-to-r hover:from-red-700 hover:to-red-500 transition-all duration-200 transform hover:scale-105"
+              onClick={() => useItem(user, item.name)}
+              key={index}
+            >
               {item.name}: {item.quantity}
             </button>
           );
