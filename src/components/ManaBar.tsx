@@ -6,7 +6,9 @@ type ManaProps = {
   monster?: boolean;
 };
 const ManaBar = ({ mana, maxMana, monster }: ManaProps) => {
-  const currentManaPercentage = (mana * 100) / maxMana;
+  const manaFormatted = mana < 0 ? 0 : mana;
+  const currentManaPercentage = (manaFormatted * 100) / maxMana;
+
   return (
     <div className={`flex gap-x-2 ${monster && "flex-row-reverse"}`}>
       <img src={manaIcon} />
