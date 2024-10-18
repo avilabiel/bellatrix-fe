@@ -1,3 +1,4 @@
+import React from "react";
 import heart from "../heart.png";
 type HealthBarProps = {
   health: number;
@@ -5,7 +6,8 @@ type HealthBarProps = {
   monster?: boolean;
 };
 const HealthBar = ({ health, maxHealth, monster }: HealthBarProps) => {
-  const currentHealthPercentage = (health * 100) / maxHealth;
+  const healthFormatted = health < 0 ? 0 : health;
+  const currentHealthPercentage = (healthFormatted * 100) / maxHealth;
 
   return (
     <div className={`flex gap-x-2 ${monster && "flex-row-reverse"}`}>

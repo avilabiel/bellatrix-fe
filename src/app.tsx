@@ -270,8 +270,12 @@ export function App() {
         </div>
         <div className="flex flex-col  gap-y-4">
           <h1>{monster.name}</h1>
-          <HealthBar health={monster.getHp()} maxHealth={monster.maxHp} monster/>
-          <ManaBar mana={monster.getMp()} maxMana={monster.maxMp} monster/>
+          <HealthBar
+            health={monster.getHp()}
+            maxHealth={monster.maxHp}
+            monster
+          />
+          <ManaBar mana={monster.getMp()} maxMana={monster.maxMp} monster />
         </div>
       </div>
       <div className="flex gap-1 w-full justify-center mt-5">
