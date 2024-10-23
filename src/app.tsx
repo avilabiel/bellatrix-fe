@@ -9,6 +9,9 @@ import Monster from "./entities/Monster";
 import Spell from "./entities/Spell";
 import HealthBar from "./components/HealthBar";
 import ManaBar from "./components/ManaBar";
+import Button from "./components/buttons/Button";
+import AreaButtons from "./components/buttons/ActionButtons";
+import ActionButtons from "./components/buttons/ActionButtons";
 
 // TODO: explain
 function getRandomizer(min: number, max: number) {
@@ -267,15 +270,7 @@ export function App() {
           <ManaBar mana={monster.getMp()} maxMana={monster.maxMp} monster />
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          gap: 200,
-          width: "100%",
-          justifyContent: "center",
-          marginTop: 20,
-        }}
-      >
+      <div className="flex gap-12 w-full justify-center mt-5">
         <textarea
           className="resize-none w-[700px] h-20 px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
           ref={textareaRef}
@@ -283,38 +278,14 @@ export function App() {
           readOnly
         />
       </div>
-      <div className="flex gap-2 w-full justify-center mt-10">
-        <button
-          className="bg-gradient-to-r from-red-600 to-red-400 text-white font-bold py-3 px-6 rounded shadow-lg hover:bg-gradient-to-r hover:from-red-700 hover:to-red-500 transition-all duration-200 transform hover:scale-105"
-          onClick={() => baseAtk(user, monster)}
-        >
-          Atacar ({user.character.atk.min} a {user.character.atk.max})
-        </button>
-
-        {user.character.spells.map((spell, key) => {
-          return (
-            <button
-              className="bg-gradient-to-r from-red-600 to-red-400 text-white font-bold py-3  px-6 rounded shadow-lg hover:bg-gradient-to-r hover:from-red-700 hover:to-red-500 transition-all duration-200 transform hover:scale-105"
-              key={key}
-              onClick={() => spellAtk(user, monster, spell.name)}
-            >
-              {spell.name} (MP: {spell.mpCost})
-            </button>
-          );
-        })}
-
-        {user.character.items.map((item, index) => {
-          return (
-            <button
-              className="bg-gradient-to-r from-red-600 to-red-400 text-white font-bold py-3 px-6 rounded shadow-lg hover:bg-gradient-to-r hover:from-red-700 hover:to-red-500 transition-all duration-200 transform hover:scale-105"
-              onClick={() => useItem(user, item.name)}
-              key={index}
-            >
-              {item.name}: {item.quantity}
-            </button>
-          );
-        })}
-      </div>
+      <ActionButtons
+        baseAtk={baseAtk}
+        spellAtk={spellAtk}
+        useItem={useItem}
+        monster={monster}
+        user={user}
+      />
     </div>
   );
 }
+
