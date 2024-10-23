@@ -5,10 +5,12 @@ import BattleEvent, { ACTION_TYPE } from "./entities/BattleEvent";
 import HealthBar from "./components/HealthBar";
 import ManaBar from "./components/ManaBar";
 import Button from "./components/buttons/Button";
+
 import { useCombatActions } from "./hooks/useCombatActions";
 import AttackButton from "./components/buttons/AttackButton";
 import ItemButton from "./components/buttons/ItemButton";
 import SpellButton from "./components/buttons/SpellButton";
+
 
 // TODO: explain
 export function getRandomizer(min: number, max: number) {
@@ -105,6 +107,8 @@ export function App() {
           />
         ))}
       </div>
+
     </div>
   );
 }
+
