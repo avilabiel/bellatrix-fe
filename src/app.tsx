@@ -9,9 +9,9 @@ import Monster from "./entities/Monster";
 import Spell from "./entities/Spell";
 import HealthBar from "./components/HealthBar";
 import ManaBar from "./components/ManaBar";
-import Button from "./components/buttons/Button";
-import AreaButtons from "./components/buttons/ActionButtons";
 import ActionButtons from "./components/buttons/ActionButtons";
+import ButtonCircle from "./components/Button";
+import SwordIcon from "./public/images/sword.png";
 
 // TODO: explain
 function getRandomizer(min: number, max: number) {
@@ -285,7 +285,9 @@ export function App() {
         monster={monster}
         user={user}
       />
+      <ButtonCircle onClick={() => baseAtk(user, monster)}>
+        <img src={SwordIcon} width={45} className="mt-[-4px]" />
+      </ButtonCircle>
     </div>
   );
 }
-
