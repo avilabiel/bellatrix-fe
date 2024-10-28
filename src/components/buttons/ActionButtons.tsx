@@ -6,6 +6,8 @@ import User from "@/entities/User";
 import Monster from "@/entities/Monster";
 import { useCombatActions } from "@/hooks/useCombatActions";
 import Button from "./Button";
+import Button from "../Button";
+import SwordIcon from "@/public/images/sword.png";
 
 type ActionButtonsProps = {
   user: User;
@@ -25,6 +27,10 @@ const ActionButtons = ({
   return (
     <div className="flex gap-2 w-full justify-center mt-10">
       {/* <AttackButton
+      <Button onClick={() => baseAtk(user, monster)}>
+        <img src={SwordIcon} width={45} className="mt-[-4px]" />
+      </Button>
+      <AttackButton
         onClick={() => baseAtk(user, monster)}
         atkMin={user.character.atk.min}
         atkMax={user.character.atk.max}

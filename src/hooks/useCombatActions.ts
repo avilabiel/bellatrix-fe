@@ -1,13 +1,16 @@
 import { useCallback, useState } from "react";
 import User from "@/entities/User";
 import Monster from "@/entities/Monster";
-import { getRandomizer } from "@/app";
 import BattleEvent, { ACTION_TYPE } from "@/entities/BattleEvent";
 import Battle from "@/entities/Battle";
 import { battle as battleMock } from "@/mock";
 import Spell from "@/entities/Spell";
 
 export const useCombatActions = () => {
+  function getRandomizer(min: number, max: number) {
+    return Math.floor(Math.random() * (1 + max - min)) + min;
+  }
+
   const [battle, setBattle] = useState<Battle>(battleMock);
   const { user, monster } = battle;
 

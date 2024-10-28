@@ -2,21 +2,21 @@
 import React from "react";
 import HealthBar from "./components/HealthBar";
 import ManaBar from "./components/ManaBar";
+import SwordIcon from "@/public/images/sword.png";
 import { useCombatActions } from "./hooks/useCombatActions";
 import AttackButton from "./components/buttons/AttackButton";
 import ItemButton from "./components/buttons/ItemButton";
 import SpellButton from "./components/buttons/SpellButton";
-import BattleMessage from "./components/BattleMessage";
+import BattleMessage from "./components/BattleMessage;
+import ButtonSword from "./components/ButtonSword";
 
 // TODO: explain
-export function getRandomizer(min: number, max: number) {
-  return Math.floor(Math.random() * (1 + max - min)) + min;
-}
-
 // POC: Start the battle event
 export function App() {
   const { useItem, spellAtk, baseAtk, battle, monster, user } =
     useCombatActions();
+  const { useItem, spellAtk, baseAtk, battle } = useCombatActions();
+  const { user, monster } = battle;
 
   return (
     <div className="App">
@@ -43,6 +43,9 @@ export function App() {
       </div>
       <BattleMessage monster={monster} user={user} battle={battle}/>
       <div className="flex gap-2 w-full justify-center mt-10">
+        <ButtonSword onClick={() => baseAtk(user, monster)}>
+          <img src={SwordIcon} width={45} className="mt-[-4px]" />
+        </ButtonSword>
         <AttackButton
           onClick={() => baseAtk(user, monster)}
           atkMin={user.character.atk.min}
