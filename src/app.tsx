@@ -11,14 +11,10 @@ import ItemButton from "./components/buttons/ItemButton";
 import SpellButton from "./components/buttons/SpellButton";
 
 // TODO: explain
-export function getRandomizer(min: number, max: number) {
-  return Math.floor(Math.random() * (1 + max - min)) + min;
-}
-
 // POC: Start the battle event
 export function App() {
-  const { useItem, spellAtk, baseAtk, battle, monster, user } =
-    useCombatActions();
+  const { useItem, spellAtk, baseAtk, battle } = useCombatActions();
+  const { user, monster } = battle;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const eventFormatter = (battleEvent: BattleEvent | string) => {
     // TODO: Improve this function => WTH is this?
