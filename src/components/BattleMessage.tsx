@@ -1,25 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import Battle from "@/entities/Battle";
-import Monster from "@/entities/Monster";
-import User from "@/entities/User";
 import { eventFormatter } from "@/utils/eventFormatter";
 
 type BattleMessageProps = {
-  user: User;
-  monster: Monster;
   battle: Battle;
 };
 
-const BattleMessage = ({ user, monster, battle }: BattleMessageProps) => {
-  console.log("BattleMessage", battle.events);
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+const BattleMessage = ({ battle }: BattleMessageProps) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
     }
   }, [battle.events]);
   const formattedEvents = battle.events.map((event) =>
-    eventFormatter(event, user, monster)
+    eventFormatter(event)
   );
   return (
     <div className="flex gap-12 w-full justify-center mt-5">

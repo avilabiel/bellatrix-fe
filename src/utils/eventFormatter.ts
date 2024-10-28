@@ -1,24 +1,10 @@
 import BattleEvent, { ACTION_TYPE } from "@/entities/BattleEvent";
-import Monster from "@/entities/Monster";
-import User from "@/entities/User";
 
-export const eventFormatter = (
-  battleEvent: BattleEvent | string,
-  user: User,
-  monster: Monster
-): string => {
+export const eventFormatter = (battleEvent: BattleEvent | string): string => {
   // TODO: Improve this function => WTH is this?
   if (typeof battleEvent === "string") {
     return battleEvent;
   }
-  console.log(battleEvent);
-
-  // NOT IMPLEMENTED YET
-  // if (battleEvent.actionType === ACTION_TYPE["conclusion"]) {
-  //   return `${
-  //     battleEvent.result.sender?.isWinner ? user.getName() : monster.getName()
-  //   } venceu!`;
-  // }
 
   if (battleEvent.actionType === ACTION_TYPE["base-attack"]) {
     return `${battleEvent.sender.name} atacou o ${

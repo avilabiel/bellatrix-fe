@@ -7,14 +7,12 @@ import { useCombatActions } from "./hooks/useCombatActions";
 import AttackButton from "./components/buttons/AttackButton";
 import ItemButton from "./components/buttons/ItemButton";
 import SpellButton from "./components/buttons/SpellButton";
-import BattleMessage from "./components/BattleMessage;
-import ButtonSword from "./components/ButtonSword";
+import BattleMessage from "./components/BattleMessage";
+import ButtonSword from "./components/buttons/ButtonSword";
 
 // TODO: explain
 // POC: Start the battle event
 export function App() {
-  const { useItem, spellAtk, baseAtk, battle, monster, user } =
-    useCombatActions();
   const { useItem, spellAtk, baseAtk, battle } = useCombatActions();
   const { user, monster } = battle;
 
@@ -41,7 +39,7 @@ export function App() {
           <ManaBar mana={monster.getMp()} maxMana={monster.maxMp} monster />
         </div>
       </div>
-      <BattleMessage monster={monster} user={user} battle={battle}/>
+      <BattleMessage battle={battle} />
       <div className="flex gap-2 w-full justify-center mt-10">
         <ButtonSword onClick={() => baseAtk(user, monster)}>
           <img src={SwordIcon} width={45} className="mt-[-4px]" />
