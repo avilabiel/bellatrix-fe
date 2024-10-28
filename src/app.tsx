@@ -4,11 +4,12 @@ import { useEffect, useRef } from "react";
 import BattleEvent, { ACTION_TYPE } from "./entities/BattleEvent";
 import HealthBar from "./components/HealthBar";
 import ManaBar from "./components/ManaBar";
-import Button from "./components/buttons/Button";
+import SwordIcon from "@/public/images/sword.png";
 import { useCombatActions } from "./hooks/useCombatActions";
 import AttackButton from "./components/buttons/AttackButton";
 import ItemButton from "./components/buttons/ItemButton";
 import SpellButton from "./components/buttons/SpellButton";
+import ButtonSword from "./components/ButtonSword";
 
 // TODO: explain
 // POC: Start the battle event
@@ -81,6 +82,9 @@ export function App() {
         />
       </div>
       <div className="flex gap-2 w-full justify-center mt-10">
+        <ButtonSword onClick={() => baseAtk(user, monster)}>
+          <img src={SwordIcon} width={45} className="mt-[-4px]" />
+        </ButtonSword>
         <AttackButton
           onClick={() => baseAtk(user, monster)}
           atkMin={user.character.atk.min}
