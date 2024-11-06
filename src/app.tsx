@@ -4,11 +4,9 @@ import HealthBar from "./components/HealthBar";
 import ManaBar from "./components/ManaBar";
 import SwordIcon from "@/public/images/sword.png";
 import { useCombatActions } from "./hooks/useCombatActions";
-import AttackButton from "./components/buttons/AttackButton";
-import ItemButton from "./components/buttons/ItemButton";
-import SpellButton from "./components/buttons/SpellButton";
 import BattleMessage from "./components/BattleMessage";
-import ButtonSword from "./components/buttons/ButtonSword";
+import Button from "./components/buttons/Button";
+import { BattleActions } from "./components/BattleActions";
 
 // TODO: explain
 // POC: Start the battle event
@@ -40,30 +38,35 @@ export function App() {
         </div>
       </div>
       <BattleMessage battle={battle} />
-      <div className="flex gap-2 w-full justify-center mt-10">
-        <ButtonSword onClick={() => baseAtk(user, monster)}>
-          <img src={SwordIcon} width={45} className="mt-[-4px]" />
-        </ButtonSword>
-        <AttackButton
-          onClick={() => baseAtk(user, monster)}
-          atkMin={user.character.atk.min}
-          atkMax={user.character.atk.max}
-        />
+      <BattleActions.AreaContent>
+        <Button onClick={() => baseAtk(user, monster)}>
+          <BattleActions.AreaIcon>
+            <BattleActions.Icon url={SwordIcon} />
+          </BattleActions.AreaIcon>
+        </Button>
         {user.character.items.map((item, index) => (
-          <ItemButton
+          <Button
+            title={item.name}
             key={index}
             onClick={() => useItem(user, item.name)}
-            item={item}
-          />
+          >
+            <BattleActions.AreaIcon>
+              <BattleActions.Icon nameOfIcon={item.name} />
+            </BattleActions.AreaIcon>
+          </Button>
         ))}
         {user.character.spells.map((spell, index) => (
-          <SpellButton
+          <Button
             key={index}
             onClick={() => spellAtk(user, monster, spell.name)}
-            spell={spell}
-          />
+            title={spell.name}
+          >
+            <BattleActions.AreaIcon>
+              <BattleActions.Icon nameOfIcon={spell.name} />
+            </BattleActions.AreaIcon>
+          </Button>
         ))}
-      </div>
+      </BattleActions.AreaContent>
     </div>
   );
 }
