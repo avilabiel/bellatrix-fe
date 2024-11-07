@@ -9,6 +9,3 @@ export const AreaBattleIcon = ({ children }: AreaBattleIconProps) => {
     </div>
   );
 };
-
-// py 035
-// px 075
