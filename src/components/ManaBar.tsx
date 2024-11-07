@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import manaIcon from "../mana.png";
+import Bar from "../EmptyBar.png";
+import useResponsiveWidth from "@/hooks/useResponsiveWidth";
+import { formatSizeBar } from "@/utils/formatedSizeBar";
 type ManaProps = {
   mana: number;
   maxMana: number;
   monster?: boolean;
 };
 const ManaBar = ({ mana, maxMana, monster }: ManaProps) => {
-  const manaFormatted = mana < 0 ? 0 : mana;
-  const currentManaPercentage = (manaFormatted * 100) / maxMana;
-
+  const width = useResponsiveWidth(768, 105, 234);
+  const formatedSize = formatSizeBar(mana, maxMana, width);
   return (
-    <div className={`flex gap-x-2 ${monster && "flex-row-reverse"}`}>
-      <img src={manaIcon} />
+    <div
+      className={`flex gap-x-2 ${
+        monster && "flex-row-reverse"
+      } mt-[-5.5rem] sm:mt-[-1.5rem]`}
+    >
       <div
-        className={`w-60 border border-teal-400 flex gap-x-2  rounded-[2px]`}
+        className="relative w-[130px] sm:w-[320px] h-[120px] max-w-[320px] bg-contain bg-no-repeat flex justify-center items-center"
+        style={{
+          backgroundImage: `url(${Bar})`,
+        }}
       >
-        <div
-          className={`w-full bg-teal-100`}
-          style={{ width: `${currentManaPercentage}%` }}
-        ></div>
+        <div className="absolute bottom-[66px] sm:bottom-0 inset-0 flex items-center justify-start px-[9.3%] sm:px-[9.8%]">
+          <div
+            className="h-[30%] bg-teal-400 rounded-md sm:rounded-lg transition-all duration-300 ease-in-out"
+            style={{
+              width: `${formatedSize}px`,
+            }}
+          ></div>
+        </div>
       </div>
     </div>
   );
