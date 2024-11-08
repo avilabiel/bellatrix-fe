@@ -1,9 +1,9 @@
 export const formatSizeBar = (
-  currentValue: number,
-  maxValue: number,
+  currentValueSize: number,
+  maxValueSize: number,
   width: number
 ): number => {
-  const manaFormatted = currentValue < 0 ? 0 : currentValue;
-  const currentManaPercentage = (manaFormatted * 100) / maxValue;
-  return (currentManaPercentage / 100) * width;
+  const valueSizeBarFormatted = currentValueSize < 0 ? 0 : currentValueSize;
+  const currentValueSizeBarPercentage = (valueSizeBarFormatted * 100) / maxValueSize;
+  return (currentValueSizeBarPercentage / 100) * width;    
 };
