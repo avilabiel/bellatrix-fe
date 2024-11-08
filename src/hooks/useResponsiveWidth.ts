@@ -1,24 +1,27 @@
 import { useState, useEffect } from "react";
 
 const useResponsiveWidth = (
-  breakpoint: number,
-  smallSize: number,
-  largeSize: number
-) => {
-  const [width, setWidth] = useState(
-    window.innerWidth < breakpoint ? smallSize : largeSize
+  breakpointWidth: number,
+  smallWidth: number,
+  largeWidth: number
+): number => {
+  const [currentWidth, setCurrentWidth] = useState<number>(
+    window.innerWidth < breakpointWidth ? smallWidth : largeWidth
   );
 
   useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth < breakpoint ? smallSize : largeSize);
+    const handleWindowResize = (): void => {
+      setCurrentWidth(
+        window.innerWidth < breakpointWidth ? smallWidth : largeWidth
+      );
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [breakpoint, smallSize, largeSize]);
+    window.addEventListener("resize", handleWindowResize);
+    console.log(window.innerWidth);
+    return (): void => window.removeEventListener("resize", handleWindowResize);
+  }, [breakpointWidth, smallWidth, largeWidth]);
 
-  return width;
+  return currentWidth;
 };
 
 export default useResponsiveWidth;

@@ -34,7 +34,7 @@ export function App() {
           <HealthBar
             health={monster.getHp()}
             maxHealth={monster.maxHp}
-            monster
+            isMonster
           />
           <ManaBar mana={monster.getMp()} maxMana={monster.maxMp} monster />
         </div>
