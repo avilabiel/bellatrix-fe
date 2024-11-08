@@ -19,7 +19,7 @@ const BattleMessage = ({ battle }: BattleMessageProps) => {
   return (
     <div className="flex gap-12 w-full justify-center mt-5">
       <textarea
-        className="resize-none w-[700px] h-20 px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+        className="resize-none w-[300px] h-20 px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
         ref={textareaRef}
         value={formattedEvents.join("\n")}
         readOnly
