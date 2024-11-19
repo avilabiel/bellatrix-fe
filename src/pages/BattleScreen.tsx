@@ -5,6 +5,7 @@ import BattlePlayers from "@/components/BattlePlayers";
 import Button from "@/components/buttons/Button";
 import SwordIcon from "@/public/images/sword.png";
 import { useCombatActions } from "@/hooks/useCombatActions";
+import BattleBackgroundImage from "@/components/BattleBackgroundImage";
 
 // Maybe, battle should go in a context
 export default function BattleScreen() {
@@ -12,7 +13,7 @@ export default function BattleScreen() {
   const { user, monster } = battle;
 
   return (
-    <div>
+    <BattleBackgroundImage>
       <BattlePlayers battle={battle} />
       <BattleMessage battle={battle} />
       <BattleActions.AreaContent>
@@ -44,6 +45,6 @@ export default function BattleScreen() {
           </Button>
         ))}
       </BattleActions.AreaContent>
-    </div>
+    </BattleBackgroundImage>
   );
 }
