@@ -48,7 +48,6 @@
   "devDependencies": {
     "autoprefixer": "^10.4.20",
     "globals": "^15.11.0",
-    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "typescript-eslint": "^8.8.1"
