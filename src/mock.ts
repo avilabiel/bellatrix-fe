@@ -1,12 +1,11 @@
 import Battle from "./entities/Battle";
 import Monster from "./entities/Monster";
 import User from "./entities/User";
-
+import userImage from "./public/images/user.webp";
 export const user = new User({
   id: "d76b37ec-0fa6-4c3b-a945-f7f93df81016",
   nick: "r20",
-  image:
-    "https://pbs.twimg.com/profile_images/1725495920840585217/rdF0kKid_400x400.jpg",
+  image: userImage,
   character: {
     level: 1,
     hp: 20,
