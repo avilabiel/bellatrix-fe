@@ -1,8 +1,11 @@
 import { useCallback, useState } from "react";
 import { useMapDimensions } from "./useMapDimensions";
 
-export const useCharacter = (propName: string) => {
-  const { width, height } = useMapDimensions();
+export const useCharacter = (
+  propName: string,
+  width: number,
+  height: number
+) => {
   const [name, setName] = useState(propName);
   const [pos, setPos] = useState({ x: 3, y: 5 });
   const moveLeft = () => {
@@ -31,9 +34,9 @@ export const useCharacter = (propName: string) => {
   };
   const canMove = useCallback(
     (x: number, y: number) => {
-      // if (x < 0 || x >= width || y < 0 || y >= height) {
-      //   return false;
-      // }
+      if (x < 0 || x >= width || y < 0 || y >= height) {
+        return false;
+      }
       return true;
     },
     [width, height]
